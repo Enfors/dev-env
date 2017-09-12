@@ -61,6 +61,21 @@ EnableSwedishKeyboard()
     Cmd loadkeys se >/dev/null
 }
 
+CloneGitRepo()
+{
+    if [ $# -ne 2 ]; then
+	Error "CloneGitRepo: Expected 2 args (dir URL), got '$*'."
+	exit 1
+    fi
+
+    dir=$1
+    url=$2
+
+    MkDir $dir 750 vagrant vagrant
+
+    Cmd git clone $url $dir
+}
+
 MkDir()
 {
     if [ $# -ne 4 ]; then
@@ -74,7 +89,7 @@ MkDir()
     group=$4
 
     if [ ! -e $dir ]; then
-	Cmd mkdir $dir -m $mode
+	Cmd mkdir $dir -pm $mode
     fi
     
     Cmd chown $owner:$group $dir 
