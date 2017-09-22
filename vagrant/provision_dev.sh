@@ -5,7 +5,7 @@
 ProvisionDev()
 {
     #apt-get remove -y dictionaries-common miscfiles
-    Install emacs firefox xfce4
+    Install emacs #firefox xfce4
     #AddUser enfors
     ConfigureUser vagrant
     CloneGitRepo /home/vagrant/devel/enfors-lib/ \
