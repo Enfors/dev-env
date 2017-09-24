@@ -4,12 +4,19 @@
 
 ProvisionDev()
 {
-    #apt-get remove -y dictionaries-common miscfiles
-    Install emacs #firefox xfce4
-    #AddUser enfors
+    Install firefox xfce4
+    InstallEmacs25
     ConfigureUser vagrant
     CloneGitRepo /home/vagrant/devel/enfors-lib/ \
 		 https://github.com/enfors/enfors-lib
+}
+
+InstallEmacs25()
+{
+    echo "Installing emacs25..."
+    sudo add-apt-repository -y ppa:kelleyk/emacs >/dev/null
+    sudo apt-get update >/dev/null
+    sudo apt-get install emacs25 >/dev/null
 }
 
 ConfigureUser()
@@ -22,7 +29,8 @@ ConfigureUser()
 	for file in \
 	    /vagrant/home/$user/.bashrc \
 		/vagrant/home/$user/.emacs \
-		/vagrant/home/$user/.tmux.conf
+		/vagrant/home/$user/.tmux.conf \
+		/vagrant/home/$user/.Xdefaults
 	do
 	    echo "  Copying $file"
 	    Cmd cp -rp $file /home/$user
