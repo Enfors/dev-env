@@ -70,10 +70,13 @@ CloneGitRepo()
 
     dir=$1
     url=$2
-
-    MkDir $dir 750 vagrant vagrant
-
-    Cmd git clone $url $dir
+    
+    if [ -d $dir ]; then
+        return 0
+    else
+        MkDir $dir 750 vagrant vagrant
+        Cmd git clone $url $dir
+    fi
 }
 
 MkDir()
