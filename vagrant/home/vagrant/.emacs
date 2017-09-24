@@ -129,7 +129,7 @@
 ;; (add-hook 'scheme-mode-hook                      #'enable-paredit-mode)
 
 ;; Load enfors-lib
-(load-file "/home/enfors/devel/elisp/enfors-lib/enfors-lib.el")
+(load-file "~/devel/elisp/enfors-lib/enfors-lib.el")
 
 (require 'ido)
 (ido-mode t)
