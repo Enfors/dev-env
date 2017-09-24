@@ -1,5 +1,6 @@
 Vagrant.configure(2) do |config|
-  config.vm.box = "janihur/ubuntu-1604-lxde-desktop"
+  #config.vm.box = "janihur/ubuntu-1604-lxde-desktop"
+  config.vm.box = "ubuntu/precise64"
 
   config.vm.provider "virtualbox" do |v|
     v.gui = true
