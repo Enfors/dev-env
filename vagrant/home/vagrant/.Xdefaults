@@ -1,5 +1,5 @@
-xterm*font:		*-fixed-*-*-*-20-*
-xterm*background:	#000000
-xterm*foreground:	#ffffff
+XTerm*font:		*-fixed-*-*-*-20-*
+XTerm*background:	#000000
+XTerm*foreground:	#ffffff
 XTerm*cursorColor:	#55ff55
 XTerm*cursorBlink:	true
