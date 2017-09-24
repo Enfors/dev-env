@@ -99,13 +99,6 @@ ProvisionBase()
 {
     apt-get update
     EnableSwedishKeyboard
-    Install python3.4 python3-pip tmux git
-    Install python-numpy python-sklearn # For AI course on Udacity
-
-    echo "Installing Django..."
-    pip3 install django==1.7 >/dev/null
-
-    echo "Installing Selenium..."
-    pip3 install --upgrade selenium >/dev/null
+    Install python3 tmux git
 }
 
