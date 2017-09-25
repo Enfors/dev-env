@@ -4,13 +4,18 @@
 
 ProvisionDev()
 {
-    Install firefox xfce4
-    InstallEmacs25
-    ConfigureUser vagrant
-    CloneGitRepo /home/vagrant/devel/enfors-lib/ \
+    echo " ==== ProvisionDev ==== "
+    FixDB
+    CloneGitRepo /home/vagrant/devel/elisp/enfors-lib/ \
 		 https://github.com/enfors/enfors-lib
+    ConfigureUser vagrant
+    InstallEmacs25
 }
 
+FixDB()
+{
+    Cmd /usr/share/debconf/fix_db.pl
+}
 InstallEmacs25()
 {
     echo "Installing emacs25..."
@@ -30,7 +35,7 @@ ConfigureUser()
 	    /vagrant/home/$user/.bashrc \
 		/vagrant/home/$user/.emacs \
 		/vagrant/home/$user/.tmux.conf \
-		/vagrant/home/$user/.Xdefaults
+		/vagrant/home/$user/.Xresources
 	do
 	    echo "  Copying $file"
 	    Cmd cp -rp $file /home/$user
@@ -63,5 +68,5 @@ Main()
     ProvisionDev
     echo "Provisioning completed."
 }
-
+# pip3 install --user numpy scipy matplotlib ipython jupyter pandas sympy nose seaborn sklearn
 Main
