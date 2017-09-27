@@ -104,6 +104,8 @@ MkDir()
 ProvisionBase()
 {
     Msg " ==== ProvisionBase ==== "
+    msg " == Setting time zone to Stockholm..."
+    Cmd cp /usr/share/zoneinfo/Europe/Stockholm /etc/localtime
     now=$(date)
     echo "Vagrant provisioning started $now" >$VAGRANT_LOG
     Msg " == Running apt-get update..."
