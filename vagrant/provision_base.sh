@@ -104,12 +104,15 @@ MkDir()
 ProvisionBase()
 {
     Msg " ==== ProvisionBase ==== "
-    msg " == Setting time zone to Stockholm..."
+    Msg " = Setting time zone to Stockholm..."
     Cmd cp /usr/share/zoneinfo/Europe/Stockholm /etc/localtime
     now=$(date)
     echo "Vagrant provisioning started $now" >$VAGRANT_LOG
-    Msg " == Running apt-get update..."
+    Msg " = Running apt-get update..."
     apt-get update >>$VAGRANT_LOG
     EnableSwedishKeyboard
     InstallDeb python3 python3-pip tmux git
+    Msg " = Updating pip3..."
+    pip3 install --upgrade setuptools pip
+
 }
