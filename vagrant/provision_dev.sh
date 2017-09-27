@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+!/usr/bin/env bash
 
 . /vagrant/provision_base.sh
 
@@ -12,6 +12,8 @@ ProvisionDev()
     #FixDB
     #InstallDeb xfce4
     InstallPythonLibs
+    InstallX
+    InstallIntelliJ
 }
 
 FixDB()
@@ -24,7 +26,7 @@ InstallEmacs25()
     Msg " == Installing emacs25..."
     add-apt-repository -y ppa:kelleyk/emacs >>$VAGRANT_LOG
     apt-get update >>$VAGRANT_LOG
-    InstallDeb emacs25
+    #InstallDeb emacs25
 }
 
 InstallPythonLibs()
@@ -35,13 +37,32 @@ InstallPythonLibs()
     InstallDeb build-essential python3-dev python3-setuptools python3-numpy \
 	python3-scipy python3-pip libatlas-dev libatlas3gf-base \
 	python3-matplotlib python3-pandas
-    Msg " = Installing pip3 packages scikit-learn and seaborn..."
-    pip3 install --upgrade scikit-learn seaborn >>$VAGRANT_LOG
+    Msg " = Installing pip3 packages scikit-learn, jupyter and seaborn..."
+    pip3 install --upgrade scikit-learn jupyter seaborn >>$VAGRANT_LOG
 
     update-alternatives --set libblas.so.3 \
         /usr/lib/atlas-base/atlas/libblas.so.3
     update-alternatives --set liblapack.so.3 \
         /usr/lib/atlas-base/atlas/liblapack.so.3
+}
+
+InstallX()
+{
+    Msg " == Installing X Window System..."
+    InstallDeb xfce4 firefox
+}
+
+InstallIntelliJ()
+{
+    Msg " == Preparing for installation of IntelliJ IDE..."
+    Msg " = Adding repository..."
+    add-apt-repository ppa:ubuntu-desktop/ubuntu-make >>$VAGRANT_LOG
+    apt-get update >>$VAGRANT_LOG
+    unset SUDO_UID
+    unset SUDO_GID
+    InstallDeb ubuntu-make
+    #Msg " = Installing IntelliJ package..."
+    #echo | umake ide idea >>$VAGRANT_LOG
 }
 
 ConfigureUser()
@@ -56,7 +77,8 @@ ConfigureUser()
 		/vagrant/home/$user/.emacs \
 		/vagrant/home/$user/.gitconfig \
 		/vagrant/home/$user/.tmux.conf \
-		/vagrant/home/$user/.Xresources
+		/vagrant/home/$user/.Xresources \
+		/vagrant/home/$user/README.txt
 	do
 	    Msg "  Copying $file"
 	    Cmd cp -rp $file /home/$user
