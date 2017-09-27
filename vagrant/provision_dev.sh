@@ -4,40 +4,62 @@
 
 ProvisionDev()
 {
-    echo " ==== ProvisionDev ==== "
-    FixDB
+    Msg " ==== ProvisionDev ==== "
     CloneGitRepo /home/vagrant/devel/elisp/enfors-lib/ \
 		 https://github.com/enfors/enfors-lib
     ConfigureUser vagrant
+    #FixDB
     InstallEmacs25
+    #FixDB
+    #InstallDeb xfce4
+    #InstallPythonLibs
 }
 
 FixDB()
 {
+    Msg " == Fixing database..."
     Cmd /usr/share/debconf/fix_db.pl
 }
 InstallEmacs25()
 {
-    echo "Installing emacs25..."
-    sudo add-apt-repository -y ppa:kelleyk/emacs >/dev/null
-    sudo apt-get update >/dev/null
-    sudo apt-get install emacs25 >/dev/null
+    Msg " == Installing emacs25..."
+    add-apt-repository -y ppa:kelleyk/emacs >/dev/null
+    apt-get update >/dev/null
+    InstallDeb emacs25
+    InstallPythonLibs
+}
+
+InstallPythonLibs()
+{
+    Msg " == Installing Python libraries..."
+    # As per https://askubuntu.com/questions/538905/cannot-install-scikit-learn-in-python-3-4-in-ubuntu-14-04:
+
+    InstallDeb build-essential python3-dev python3-setuptools python3-numpy \
+	python3-scipy python3-pip libatlas-dev libatlas3gf-base \
+	python3-matplotlib python3-pandas
+    pip3 install --upgrade scikit-learn seaborn
+
+    update-alternatives --set libblas.so.3 \
+        /usr/lib/atlas-base/atlas/libblas.so.3
+    update-alternatives --set liblapack.so.3 \
+        /usr/lib/atlas-base/atlas/liblapack.so.3
 }
 
 ConfigureUser()
 {
     for user in $*; do
-	echo "Configuring user $user..."
+	Msg " == Configuring user $user..."
     
 	SetXFCEKeyboard $user
 
 	for file in \
 	    /vagrant/home/$user/.bashrc \
 		/vagrant/home/$user/.emacs \
+		/vagrant/home/$user/.gitconfig \
 		/vagrant/home/$user/.tmux.conf \
 		/vagrant/home/$user/.Xresources
 	do
-	    echo "  Copying $file"
+	    Msg "  Copying $file"
 	    Cmd cp -rp $file /home/$user
 	done
 	Cmd chown -R $user:$user /home/$user
@@ -51,7 +73,7 @@ SetXFCEKeyboard()
     target_dir=$base_dir/.config/xfce4/xfconf/xfce-perchannel-xml
     target_file=$target_dir/keyboard-layout.xml
 
-    echo "  Enabling Swedish keyboard in xfce..."
+    Msg "  Enabling Swedish keyboard in xfce..."
     
     MkDir $base_dir/.config                                  700 $user $user
     MkDir $base_dir/.config/xfce4                            775 $user $user
@@ -66,7 +88,7 @@ Main()
 {
     ProvisionBase
     ProvisionDev
-    echo "Provisioning completed."
+    Msg " ==== Provisioning completed. ==== "
 }
 # pip3 install --user numpy scipy matplotlib ipython jupyter pandas sympy nose seaborn sklearn
 Main
