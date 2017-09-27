@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+export DEBIAN_FRONTEND=noninteractive
+export VAGRANT_LOG="vagrant.log"
+
 Msg()
 {
     echo "$@"
@@ -24,8 +27,8 @@ InstallDeb()
 {
     for pkg in $*; do
 	dpkg -s $pkg &> /dev/null || {
-	    Msg " = Installing $pkg..."
-	    apt-get install -y $pkg >/dev/null || {
+	    Msg " = Installing Debian package $pkg..."
+	    apt-get install -y $pkg >>$VAGRANT_LOG || {
 		Error "Installation of $pkg failed. Aborting."
 		exit 1
 	    }
@@ -37,7 +40,7 @@ AddUser()
 {
     for user in $*; do
 	grep -q "^$user:" || {
-	    echo "Adding user $user..."
+	    Msg "Adding user $user..."
 	    useradd $user
 	    for file in \
 		/vagrant/home/$user/.bashrc \
@@ -101,8 +104,10 @@ MkDir()
 ProvisionBase()
 {
     Msg " ==== ProvisionBase ==== "
+    now=$(date)
+    echo "Vagrant provisioning started $now" >$VAGRANT_LOG
     Msg " == Running apt-get update..."
-    apt-get update >/dev/null
+    apt-get update >>$VAGRANT_LOG
     EnableSwedishKeyboard
     InstallDeb python3 python3-pip tmux git
 }

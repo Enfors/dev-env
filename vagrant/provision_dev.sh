@@ -8,11 +8,10 @@ ProvisionDev()
     CloneGitRepo /home/vagrant/devel/elisp/enfors-lib/ \
 		 https://github.com/enfors/enfors-lib
     ConfigureUser vagrant
-    #FixDB
     InstallEmacs25
     #FixDB
     #InstallDeb xfce4
-    #InstallPythonLibs
+    InstallPythonLibs
 }
 
 FixDB()
@@ -23,10 +22,9 @@ FixDB()
 InstallEmacs25()
 {
     Msg " == Installing emacs25..."
-    add-apt-repository -y ppa:kelleyk/emacs >/dev/null
-    apt-get update >/dev/null
+    add-apt-repository -y ppa:kelleyk/emacs >>$VAGRANT_LOG
+    apt-get update >>$VAGRANT_LOG
     InstallDeb emacs25
-    InstallPythonLibs
 }
 
 InstallPythonLibs()
@@ -37,7 +35,8 @@ InstallPythonLibs()
     InstallDeb build-essential python3-dev python3-setuptools python3-numpy \
 	python3-scipy python3-pip libatlas-dev libatlas3gf-base \
 	python3-matplotlib python3-pandas
-    pip3 install --upgrade scikit-learn seaborn
+    Msg " = Installing pip3 packages scikit-learn and seaborn..."
+    pip3 install --upgrade scikit-learn seaborn >>$VAGRANT_LOG
 
     update-alternatives --set libblas.so.3 \
         /usr/lib/atlas-base/atlas/libblas.so.3
@@ -90,5 +89,5 @@ Main()
     ProvisionDev
     Msg " ==== Provisioning completed. ==== "
 }
-# pip3 install --user numpy scipy matplotlib ipython jupyter pandas sympy nose seaborn sklearn
+
 Main
