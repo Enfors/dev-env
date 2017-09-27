@@ -20,11 +20,11 @@ Cmd()
     }
 }
 
-Install()
+InstallDeb()
 {
     for pkg in $*; do
 	dpkg -s $pkg &> /dev/null || {
-	    Msg "Installing $pkg..."
+	    Msg " = Installing $pkg..."
 	    apt-get install -y $pkg >/dev/null || {
 		Error "Installation of $pkg failed. Aborting."
 		exit 1
@@ -44,7 +44,7 @@ AddUser()
 		    /vagrant/home/$user/.emacs \
 		    /vagrant/home/$user/.tmux.conf \
 		; do
-		echo "  Copying $file..."
+		Msg "  Copying $file..."
 		cp -rp $file /home/$user
 	    done
 	    chown -R $user:$user /home/$user
@@ -54,7 +54,7 @@ AddUser()
 
 EnableSwedishKeyboard()
 {
-    echo "Enabling Swedish keyboard on the console... "
+    Msg "Enabling Swedish keyboard on the console... "
     grep -q "loadkeys" /etc/rc.local || {
 	sed "s/^exit 0$/loadkeys se\nexit 0/g" -i /etc/rc.local
     }
@@ -100,8 +100,9 @@ MkDir()
 
 ProvisionBase()
 {
-    apt-get update
+    Msg " ==== ProvisionBase ==== "
+    Msg " == Running apt-get update..."
+    apt-get update >/dev/null
     EnableSwedishKeyboard
-    Install python3 tmux git
+    InstallDeb python3 python3-pip tmux git
 }
-
