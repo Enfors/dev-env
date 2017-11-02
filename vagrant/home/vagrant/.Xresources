@@ -1,4 +1,4 @@
-XTerm*font:		*-fixed-*-*-*-20-*
+XTerm*font:		terminus-14
 XTerm*background:	#000000
 XTerm*foreground:	#ffffff
 XTerm*cursorColor:	#55ff55
