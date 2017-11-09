@@ -14,6 +14,7 @@ ProvisionDev()
     InstallPythonLibs
     InstallX
     InstallIntelliJ
+    InstallOpenCV
 }
 
 FixDB()
@@ -23,7 +24,7 @@ FixDB()
 }
 InstallEmacs25()
 {
-    Msg " == Installing emacs25..."
+    Msg " == Preparing for installing emacs25..."
     add-apt-repository -y ppa:kelleyk/emacs >>$VAGRANT_LOG
     apt-get update >>$VAGRANT_LOG
     #InstallDeb emacs25
@@ -63,6 +64,13 @@ InstallIntelliJ()
     InstallDeb ubuntu-make
     #Msg " = Installing IntelliJ package..."
     #echo | umake ide idea >>$VAGRANT_LOG
+}
+
+InstallOpenCV()
+{
+    Msg " == Preparing for installation of OpenCV..."
+    Msg " = Downloading installation script from GitHub..."
+    GitCloneRepo https://github.com/milq/milq.git $HOME/build/milq >/dev/null
 }
 
 ConfigureUser()
