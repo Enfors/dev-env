@@ -103,3 +103,6 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
 fi
 
 alias emacs="emacs -nw"
+if [ -d /home/vagrant/devel/gitprompt ]; then
+    . /home/vagrant/devel/gitprompt/gitprompt.sh
+fi
