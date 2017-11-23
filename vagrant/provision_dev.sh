@@ -1,4 +1,4 @@
-!/usr/bin/env bash
+#!/usr/bin/env bash
 
 . /vagrant/provision_base.sh
 
@@ -27,6 +27,12 @@ InstallEmacs25()
     Msg " == Preparing for installing emacs25..."
     add-apt-repository -y ppa:kelleyk/emacs >>$VAGRANT_LOG
     apt-get update >>$VAGRANT_LOG
+    if [ ! -d "/home/vagrant/.emacs.d/plugins/yasnippet" ]; then
+	Msg " = Installing yasnippet..."	
+	MkDir /home/vagrant/.emacs.d/plugins 750 vagrant vagrant
+	Cmd git clone --recursive https://github.com/joaotavora/yasnippet \
+	    /home/vagrant/.emacs.d/plugins/yasnippet >/dev/null
+    fi
     #InstallDeb emacs25
 }
 
@@ -44,7 +50,9 @@ InstallPythonLibs()
     update-alternatives --set libblas.so.3 \
         /usr/lib/atlas-base/atlas/libblas.so.3
     update-alternatives --set liblapack.so.3 \
-        /usr/lib/atlas-base/atlas/liblapack.so.3
+			/usr/lib/atlas-base/atlas/liblapack.so.3
+    Msg " = Installing misc pip3 packages..."
+    pip3 install --upgrade telepot tweepy
 }
 
 InstallX()
