@@ -1,6 +1,13 @@
 ;;;; Package manager stuff
 
 ;; As suggested by the book Mastering Emacs:
+
+;; Added by Package.el.  This must come before configurations of
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
+(package-initialize)
+
 (setq package-archives
       '(("gnu"       . "http://elpa.gnu.org/packages/")
 	("marmalade" . "http://marmalade-repo.org/packages/")
@@ -42,94 +49,13 @@
 			      (other-window -1)))
 
 
-;;;; Org-mode stuff
-(setq org-todo-keywords
-      '((sequence "TODO(t)" "WAITING(w@)" "VERIFY(v)" "|"
-		  "DONE(d!)" "DELEGATED(e@)" "CANCELLED(c@)")))
-
-;; Always display the empty line between headings
-(setq org-cycle-separator-lines 1)
-
-;; Capture
-(setq org-default-notes-file "~/work/work.org")
-(define-key global-map "\C-cc" 'org-capture)
-
-
-;;; My own keyboard stuff
-(defun ce-ins-tilde ()
-  "Insert ~ at point."
-  (interactive)
-  (insert "~"))
-
-(defun ce-ins-caret ()
-  "Insert ^ at point."
-  (interactive)
-  (insert "^"))
-
-(defun ce-ins-day (week-day)
-  "Insert a day plan at point."
-  (interactive "sEnter day of week: ")
-  
-  (insert "
-**** ")
-  (insert week-day)
-  (insert "
-	  
-| Uppgift       | Pomodoros |
-|---------------+-----------|
-|               |           |
-| Avsluta dagen | ()        |
-
-"))
-
-
-(defun ce-ins-week (week-num)
-  "Insert a week plan at point."
-  (interactive "sEnter week number: ")
-  (insert "
-*** Vecka ")
-  (insert week-num)
-  (insert "
-
-| Dag     | Pomodoros |
-|---------+-----------|
-| Måndag  |           |
-| Tisdag  |           |
-| Onsdag  |           |
-| Torsdag |           |
-| Fredag  |           |
-| Totalt  |           |
-
-")
-  (ce-ins-day "Måndag")
-  (ce-ins-day "Tisdag")
-  (ce-ins-day "Onsdag")
-  (ce-ins-day "Torsdag")
-  (ce-ins-day "Fredag")
-  (forward-line -35)
-  (forward-char 2))
-
-
-(show-paren-mode 1)			; Always show matching parens.
-
-;;; Elisp stuff
-
-(add-hook 'org-mode-hook 'auto-fill-mode)
-(add-hook 'org-mode-hook 'org-indent-mode)
-
-;; Load paredit
-;; (load-file "~/lib/elisp/paredit.el")
-;; (autoload 'enable-paredit-mode "paredit"
-;;   "Turn on pseudo-structural editing of Lisp code." t)
-;; (add-hook 'emacs-lisp-mode-hook                  #'enable-paredit-mode)
-;; (add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
-;; (add-hook 'ielm-mode-hook                        #'enable-paredit-mode)
-;; (add-hook 'lisp-mode-hook                        #'enable-paredit-mode)
-;; (add-hook 'lisp-interaction-mode-hook            #'enable-paredit-mode)
-;; (add-hook 'scheme-mode-hook                      #'enable-paredit-mode)
-
 ;; Load enfors-lib
 (load-file "~/devel/elisp/enfors-lib/enfors-lib.el")
+
+(require 'enfors-yasnippet-setup)
+(require 'enfors-org-setup)
+(require 'enfors-emlb-setup)
+(require 'enfors-backup-setup)
 
 (require 'ido)
 (ido-mode t)
@@ -141,10 +67,11 @@
  ;; If there is more than one, they won't work right.
  '(erc-nick "Enfors")
  '(org-clock-into-drawer t)
- '(org-log-into-drawer t))
+ '(org-log-into-drawer t)
+ '(package-selected-packages (quote (markdown-mode flycheck))))
 (custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  )
