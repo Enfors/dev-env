@@ -106,3 +106,6 @@ alias emacs="emacs -nw"
 if [ -d /home/vagrant/devel/gitprompt ]; then
     . /home/vagrant/devel/gitprompt/gitprompt.sh
 fi
+
+export PYTHONPATH=$HOME/devel/python:$HOME/devel/python/TwitGrep
+export EDITOR="vi"
