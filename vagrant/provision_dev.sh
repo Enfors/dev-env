@@ -78,7 +78,7 @@ InstallOpenCV()
 {
     Msg " == Preparing for installation of OpenCV..."
     Msg " = Downloading installation script from GitHub..."
-    GitCloneRepo https://github.com/milq/milq.git $HOME/build/milq >/dev/null
+    CloneGitRepo https://github.com/milq/milq.git $HOME/build/milq >/dev/null
 }
 
 ConfigureUser()
@@ -91,6 +91,7 @@ ConfigureUser()
 	for file in \
 	    /vagrant/home/$user/.bashrc \
 		/vagrant/home/$user/.emacs \
+		/vagrant/home/$user/.emacs.d \
 		/vagrant/home/$user/.gitconfig \
 		/vagrant/home/$user/.tmux.conf \
 		/vagrant/home/$user/.Xresources \

@@ -1,0 +1,23 @@
+# key: tomorrow
+# name: tomorrow
+# --
+*** `(progn (if (string-equal (format-time-string "%A") "Friday")
+                (setq seconds-offset (* 60 60 24 3))
+              (setq seconds-offset (* 60 60 24)))
+            (insert (format-time-string "%Y-%m-%d: %A"
+                                        (time-add (current-time)
+					          seconds-offset))))`
+
+- Pomodoros: 
+
+- [/] Todos
+  - [ ] $0
+  - [ ] Skriv dagsrapport
+  - [ ] Gå igenom allt som är WAITING
+  - [ ] Gå igenom morgondagens agenda
+  - [ ] Planera morgondagen
+  - [ ] Städa mail
+
+- Dagsrapport
+  -
+  -
