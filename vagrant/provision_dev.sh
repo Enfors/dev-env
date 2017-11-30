@@ -58,7 +58,7 @@ InstallPythonLibs()
 InstallX()
 {
     Msg " == Installing X Window System..."
-    InstallDeb xfce4 firefox
+    InstallDeb xfce4 firefox xfonts-terminus
 }
 
 InstallIntelliJ()
