@@ -5,6 +5,7 @@
 ProvisionProd()
 {
     echo &>/dev/null
+    SetHostname prod
 }
 
 Main()
