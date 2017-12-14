@@ -101,6 +101,19 @@ MkDir()
     Cmd chown $owner:$group $dir 
 }
 
+SetHostname()
+{
+    if [ $# -ne 1 ]; then
+	Error "SetHostname: Expected one arg, got '$*'."
+	exit 1
+    fi
+
+    name=$1
+
+    echo $name >/etc/hostname
+    hostname=$name
+}
+
 ProvisionBase()
 {
     Msg " ==== ProvisionBase ==== "
