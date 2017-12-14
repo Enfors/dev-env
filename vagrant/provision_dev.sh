@@ -5,6 +5,7 @@
 ProvisionDev()
 {
     Msg " ==== ProvisionDev ==== "
+    SetHostname dev
     CloneGitRepo /home/vagrant/devel/elisp/enfors-lib/ \
 		 https://github.com/enfors/enfors-lib
     ConfigureUser vagrant
@@ -15,6 +16,7 @@ ProvisionDev()
     InstallX
     InstallIntelliJ
     InstallOpenCV
+    InstallEnforsBot
 }
 
 FixDB()
@@ -52,7 +54,7 @@ InstallPythonLibs()
     update-alternatives --set liblapack.so.3 \
 			/usr/lib/atlas-base/atlas/liblapack.so.3
     Msg " = Installing misc pip3 packages..."
-    pip3 install --upgrade telepot tweepy
+    pip3 install --upgrade telepot tweepy flask
 }
 
 InstallX()
@@ -81,6 +83,19 @@ InstallOpenCV()
     CloneGitRepo https://github.com/milq/milq.git $HOME/build/milq >/dev/null
 }
 
+InstallEnforsBot()
+{
+    olddir=$(pwd)
+
+    cd /home/vagrant/devel/python
+
+    for repo in EnforsBot TwitGrep botymcbotface math_engine; do
+	CloneGitRepo https://github.com/enfors/$repo $repo
+    done
+    
+    cd $olddir
+}
+
 ConfigureUser()
 {
     for user in $*; do
@@ -100,6 +115,9 @@ ConfigureUser()
 	    Msg "  Copying $file"
 	    Cmd cp -rp $file /home/$user
 	done
+
+	MkDir /vagrant/home/devel/python 750 vagrant vagrant
+	
 	Cmd chown -R $user:$user /home/$user
     done
 }
