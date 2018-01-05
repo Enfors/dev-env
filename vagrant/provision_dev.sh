@@ -13,6 +13,7 @@ ProvisionDev()
     #FixDB
     #InstallDeb xfce4
     InstallPythonLibs
+    InstallElpySupport
     InstallX
     InstallIntelliJ
     InstallOpenCV
@@ -55,6 +56,13 @@ InstallPythonLibs()
 			/usr/lib/atlas-base/atlas/liblapack.so.3
     Msg " = Installing misc pip3 packages..."
     pip3 install --upgrade telepot tweepy flask
+}
+
+InstallElpySupport()
+{
+    Msg " == Installing Elpy support..."
+
+    pip3 install --upgrade flake8 jedi >>$VAGRANT_LOG
 }
 
 InstallX()
