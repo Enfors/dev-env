@@ -88,6 +88,9 @@ InstallOpenCV()
 {
     Msg " == Preparing for installation of OpenCV..."
     Msg " = Downloading installation script from GitHub..."
+
+    MkDir $HOME/build 750 vagrant vagrant
+    
     CloneGitRepo https://github.com/milq/milq.git $HOME/build/milq >/dev/null
 }
 
