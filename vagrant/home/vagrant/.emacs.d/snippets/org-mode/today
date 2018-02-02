@@ -1,0 +1,18 @@
+# key: today
+# name: today
+# --
+*** `(insert (format-time-string "%Y-%m-%d: %A" (current-time)))`
+
+- Pomodoros: 
+
+- [/] Todos
+  - [ ] $0
+  - [ ] Skriv dagsrapport
+  - [ ] Gå igenom allt som är WAITING
+  - [ ] Gå igenom morgondagens agenda
+  - [ ] Planera morgondagen
+  - [ ] Städa mail
+
+- Dagsrapport
+  -
+  -
