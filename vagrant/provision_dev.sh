@@ -56,6 +56,9 @@ InstallPythonLibs()
 			/usr/lib/atlas-base/atlas/liblapack.so.3
     Msg " = Installing misc pip3 packages..."
     pip3 install --upgrade telepot tweepy flask
+
+    msg " = Installing ImageMagick for Pillow..."
+    InstallDeb imagemagick
 }
 
 InstallElpySupport()
