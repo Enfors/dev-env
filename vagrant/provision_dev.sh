@@ -55,7 +55,7 @@ InstallPythonLibs()
     update-alternatives --set liblapack.so.3 \
 			/usr/lib/atlas-base/atlas/liblapack.so.3
     Msg " = Installing misc pip3 packages..."
-    pip3 install --upgrade telepot tweepy flask
+    pip3 install --upgrade telepot tweepy flask twine
 
     msg " = Installing ImageMagick for Pillow..."
     InstallDeb imagemagick
