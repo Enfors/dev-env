@@ -13,6 +13,7 @@ ProvisionDev()
     #FixDB
     #InstallDeb xfce4
     InstallPythonLibs
+    installPython36
     InstallElpySupport
     InstallX
     InstallIntelliJ
@@ -59,6 +60,13 @@ InstallPythonLibs()
 
     msg " = Installing ImageMagick for Pillow..."
     InstallDeb imagemagick
+}
+
+InstallPython36()
+{
+    add-apt-repository --yes ppa:deadsnakes/ppa
+    apt-get update
+    InstallDeb python3.6
 }
 
 InstallElpySupport()
