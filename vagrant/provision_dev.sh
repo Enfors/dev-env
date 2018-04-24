@@ -17,8 +17,8 @@ ProvisionDev()
     InstallElpySupport
     InstallX
     InstallIntelliJ
-    InstallOpenCV
-    InstallEnforsBot
+    # InstallOpenCV
+    # InstallEnforsBot
 }
 
 FixDB()
@@ -58,7 +58,7 @@ InstallPythonLibs()
     Msg " = Installing misc pip3 packages..."
     pip3 install --upgrade telepot tweepy flask twine
 
-    msg " = Installing ImageMagick for Pillow..."
+    Msg " = Installing ImageMagick for Pillow..."
     InstallDeb imagemagick
 }
 
