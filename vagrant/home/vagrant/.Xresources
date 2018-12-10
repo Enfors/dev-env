@@ -3,3 +3,4 @@ XTerm*background:	#000000
 XTerm*foreground:	#ffffff
 XTerm*cursorColor:	#55ff55
 XTerm*cursorBlink:	true
+XTerm*selectToClipboard: true
